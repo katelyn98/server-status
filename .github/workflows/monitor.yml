@@ -3,6 +3,7 @@ name: Monitor Website
 on:
   schedule:
     - cron: '*/90 * * * *' # Runs every 90 minutes
+  workflow_dispatch:
 
 jobs:
   monitor:
