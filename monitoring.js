@@ -21,10 +21,10 @@ const checkWebsiteStatus = async () => {
         serverStartTime = new Date(); // Start tracking time
       } else {
         const now = new Date();
-        const diffInHours = (now - serverStartTime) / (1000 * 60);
-        if (diffInHours > 1) {
+        const diffInHours = (now - serverStartTime) / (1000 * 60 * 60);
+        if (diffInHours > 4) {
           await sendSlackNotification(
-            '⚠️ This is a test message...: The server has been running for more than 1 minute. Please check its status.'
+            '⚠️ The server has been running for more than 4 hours. Please check its status.'
           );
           serverStartTime = null; // Reset start time after notification
         }
