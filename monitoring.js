@@ -3,7 +3,7 @@ const { WebClient } = require('@slack/web-api');
 
 // Slack Bot Token and Channel ID
 const SLACK_TOKEN = 'xoxb-1003827034820-8100769762054-wt1UfEPXY2Jg6NqC6DwTR2j4';
-const CHANNEL_ID = 'C06LTHK2GDB';
+const CHANNEL_ID = 'C082YTDA2T0';
 
 const web = new WebClient(SLACK_TOKEN);
 
