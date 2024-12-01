@@ -2,8 +2,8 @@ const axios = require('axios');
 const { WebClient } = require('@slack/web-api');
 
 // Slack Bot Token and Channel ID
-const SLACK_TOKEN = 'xoxb-your-slack-bot-token';
-const CHANNEL_ID = 'your-channel-id';
+const SLACK_TOKEN = 'xoxb-1003827034820-8100769762054-wt1UfEPXY2Jg6NqC6DwTR2j4';
+const CHANNEL_ID = 'C06LTHK2GDB';
 
 const web = new WebClient(SLACK_TOKEN);
 
@@ -33,7 +33,7 @@ const checkWebsiteStatus = async () => {
   } catch (error) {
     console.error('Website is unreachable:', error.message);
     if (serverStartTime) {
-      await sendSlackNotification('❌ The server is unreachable. Please investigate.');
+    //   await sendSlackNotification('❌ The server is unreachable. Please investigate.');
       serverStartTime = null; // Reset start time if the server goes down
     }
   }
