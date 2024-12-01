@@ -8,6 +8,7 @@ on:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,5 +21,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run monitor script
-        run: node script.js
+      - name: Run monitoring script
+        run: node monitoring.js
