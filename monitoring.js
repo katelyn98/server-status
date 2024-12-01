@@ -22,7 +22,7 @@ const checkWebsiteStatus = async () => {
       } else {
         const now = new Date();
         const diffInHours = (now - serverStartTime) / (1000 * 60 * 60);
-        if (diffInHours > 4) {
+        if (diffInHours > 3) {
           await sendSlackNotification(
             '⚠️ The server has been running for more than 4 hours. Please check its status.'
           );
@@ -33,7 +33,7 @@ const checkWebsiteStatus = async () => {
   } catch (error) {
     console.error('Website is unreachable:', error.message);
     if (serverStartTime) {
-    //   await sendSlackNotification('❌ The server is unreachable. Please investigate.');
+      await sendSlackNotification('❌ Confirming that the server is has not been turned on for more than 3 hours.');
       serverStartTime = null; // Reset start time if the server goes down
     }
   }
