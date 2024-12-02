@@ -2,7 +2,7 @@ const axios = require('axios');
 const { WebClient } = require('@slack/web-api');
 
 // Slack Bot Token and Channel ID
-const SLACK_TOKEN = 'xoxb-1003827034820-8100769762054-wt1UfEPXY2Jg6NqC6DwTR2j4';
+const SLACK_TOKEN = process.env.SLACK_TOKEN
 const CHANNEL_ID = 'C082YTDA2T0';
 
 const web = new WebClient(SLACK_TOKEN);
@@ -38,20 +38,9 @@ const checkWebsiteStatus = async () => {
   } catch (error) {
     console.error('Website is unreachable:', error.message);
 
-    // Track when the website became unreachable
-    if (!unreachableStartTime) {
-      unreachableStartTime = new Date();
-    }
-
-    const now = new Date();
-    const diffInMinutes = (now - unreachableStartTime) / (1000 * 60); // Unreachable time in minutes
-
-    if (diffInMinutes > 5) { // Send notification if unreachable for more than 5 minutes
-      await sendSlackNotification(
-        '❌ The server has been unreachable for more than 5 minutes. Please investigate.'
-      );
-      unreachableStartTime = null; // Reset after notification
-    }
+    await sendSlackNotification(
+      '❌ The server is not turned on.'
+    );
   }
 };
 

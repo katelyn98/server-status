@@ -2,7 +2,7 @@ name: Monitor Website
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # Runs every 90 minutes
+    - cron: '*/30 * * * *' # Runs every 30 minutes
   workflow_dispatch:
 
 jobs:
@@ -22,4 +22,6 @@ jobs:
         run: npm install
 
       - name: Run monitoring script
+        env: # Pass the secret as an environment variable
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         run: node monitoring.js
