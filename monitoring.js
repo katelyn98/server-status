@@ -9,6 +9,7 @@ const web = new WebClient(SLACK_TOKEN);
 
 const WEBSITE_URL = 'https://medsyn.katelyncmorrison.com';
 let serverStartTime = null;
+let unreachableStartTime = null; // Track when the website becomes unreachable
 
 const checkWebsiteStatus = async () => {
   try {
@@ -17,14 +18,18 @@ const checkWebsiteStatus = async () => {
     if (response.status === 200) {
       console.log('Website is reachable.');
       
+      // Reset unreachable tracking
+      unreachableStartTime = null;
+
+      // Track uptime
       if (!serverStartTime) {
         serverStartTime = new Date(); // Start tracking time
       } else {
         const now = new Date();
         const diffInHours = (now - serverStartTime) / (1000 * 60 * 60);
-        if (diffInHours > 3) {
+        if (diffInHours > 2) {
           await sendSlackNotification(
-            '⚠️ The server has been running for more than 4 hours. Please check its status.'
+            '⚠️ The server has been running for more than 2 hours. Please check its status.'
           );
           serverStartTime = null; // Reset start time after notification
         }
@@ -32,9 +37,20 @@ const checkWebsiteStatus = async () => {
     }
   } catch (error) {
     console.error('Website is unreachable:', error.message);
-    if (serverStartTime) {
-      await sendSlackNotification('❌ Confirming that the server is has not been turned on for more than 3 hours.');
-      serverStartTime = null; // Reset start time if the server goes down
+
+    // Track when the website became unreachable
+    if (!unreachableStartTime) {
+      unreachableStartTime = new Date();
+    }
+
+    const now = new Date();
+    const diffInMinutes = (now - unreachableStartTime) / (1000 * 60); // Unreachable time in minutes
+
+    if (diffInMinutes > 5) { // Send notification if unreachable for more than 5 minutes
+      await sendSlackNotification(
+        '❌ The server has been unreachable for more than 5 minutes. Please investigate.'
+      );
+      unreachableStartTime = null; // Reset after notification
     }
   }
 };
@@ -51,5 +67,5 @@ const sendSlackNotification = async (message) => {
   }
 };
 
-// Run the status check every 5 minutes
-setInterval(checkWebsiteStatus, 5 * 60 * 1000); // 5 minutes
+// Run the status check every 30 minutes
+setInterval(checkWebsiteStatus, 30 * 60 * 1000); // 30 minutes
