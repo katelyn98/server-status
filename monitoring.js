@@ -45,7 +45,7 @@ const checkWebsiteStatus = async () => {
     if (serverStartTime) {
       serverStartTime = null; // Reset uptime tracking if it becomes unreachable
     }
-    await sendSlackNotification('❌ The server is unreachable. Will retry in 30 minutes.');
+    await sendSlackNotification('❌ The server is not currently turned on.');
 
     // Retry after 30 minutes
     setTimeout(checkWebsiteStatus, 30 * 60 * 1000); // 30 minutes
