@@ -1,7 +1,9 @@
 name: Monitor Website
 
 on:
-  workflow_dispatch: # Trigger the script manually
+  schedule:
+    - cron: '0 */6 * * *' # Run every 6 hours
+  workflow_dispatch:
 
 jobs:
   monitor:

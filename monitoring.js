@@ -10,6 +10,12 @@ const WEBSITE_URL = 'https://medsyn.katelyncmorrison.com';
 
 let serverStartTime = null;
 
+const MAX_RUNTIME = 5.5 * 60 * 60 * 1000; // 5.5 hours in milliseconds
+setTimeout(() => {
+  console.log('Exiting script to avoid GitHub Actions timeout.');
+  process.exit(0);
+}, MAX_RUNTIME);
+
 // Function to check website status
 const checkWebsiteStatus = async () => {
   try {
