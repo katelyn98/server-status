@@ -5,7 +5,7 @@ const { WebClient } = require('@slack/web-api');
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const web = new WebClient(SLACK_TOKEN);
 
-const CHANNEL_ID = 'C082YTDA2T0'; // Replace with your Slack channel ID
+const CHANNEL_ID = 'C082YTDA2T0'; 
 const WEBSITE_URL = 'https://medsyn.katelyncmorrison.com';
 
 let serverStartTime = null;
