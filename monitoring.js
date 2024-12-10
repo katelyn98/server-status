@@ -35,7 +35,7 @@ const checkWebsiteStatus = async () => {
 
         if (diffInHours > 2) {
           await sendSlackNotification(
-            '⚠️ The server has been running for more than 2 hours. Please check if this is expected.'
+            '⚠️ The server has been running for more than 2 hours. Please check if this is expected. <@U02DP887GDR>'
           );
           serverStartTime = null; // Reset tracking after notification
         }
@@ -51,7 +51,7 @@ const checkWebsiteStatus = async () => {
     if (serverStartTime) {
       serverStartTime = null; // Reset uptime tracking if it becomes unreachable
     }
-    await sendSlackNotification('❌ The server is not currently turned on.');
+    // await sendSlackNotification('❌ The server is not currently turned on.');
 
     // Retry after 30 minutes
     setTimeout(checkWebsiteStatus, 30 * 60 * 1000); // 30 minutes
