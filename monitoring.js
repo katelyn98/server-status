@@ -33,7 +33,7 @@ const checkWebsiteStatus = async () => {
         const now = new Date();
         const diffInHours = (now - serverStartTime) / (1000 * 60 * 60);
 
-        if (diffInHours > 2) {
+        if (diffInHours > 1) {
           await sendSlackNotification(
             '⚠️ The server has been running for more than 2 hours. Please check if this is expected. <@U02DP887GDR>'
           );
